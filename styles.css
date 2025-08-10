@@ -1,0 +1,25 @@
+/* Basic responsive layout */
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; height: 100%; background: #0f0f10; color: #e7e7ea; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif; }
+header { padding: 12px 16px; background: #111; border-bottom: 1px solid #222; }
+h1 { font-size: 18px; margin: 0; }
+main { padding: 12px; display: grid; gap: 12px; }
+.player-section, .lyrics-section { background: #141416; border: 1px solid #222; border-radius: 10px; padding: 12px; }
+.file-row, .controls, .meta-row, .editor-toolbar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.file-label { min-width: 90px; opacity: 0.9; }
+video { width: 100%; max-height: 40vh; background: #000; border-radius: 10px; }
+button, input, select, textarea { background: #1b1c1f; color: #e7e7ea; border: 1px solid #2a2b30; border-radius: 8px; padding: 8px 10px; }
+button:hover { background: #23252a; cursor: pointer; }
+label { font-size: 14px; opacity: 0.95; }
+.lyrics-panels { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.panel { border: 1px solid #222; border-radius: 10px; padding: 8px; background: #121317; }
+.lyrics-view { height: 40vh; overflow: auto; scroll-behavior: smooth; padding: 8px; border: 1px solid #23252a; border-radius: 8px; background: #101114; }
+.lyrics-line { padding: 6px 4px; line-height: 1.5; opacity: 0.85; }
+.lyrics-line.active { opacity: 1; font-weight: 600; background: rgba(255,255,255,0.06); border-left: 3px solid #6aa3ff; padding-left: 6px; }
+textarea#lyricsInput { width: 100%; height: 40vh; resize: vertical; }
+footer { padding: 10px 12px; color: #a8a8ad; }
+@media (max-width: 920px) {
+  .lyrics-panels { grid-template-columns: 1fr; }
+  video { max-height: 32vh; }
+  .lyrics-view, textarea#lyricsInput { height: 32vh; }
+}

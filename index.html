@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>オフライン歌詞ビューア</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#111111">
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    // Register Service Worker
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js');
+      });
+    }
+  </script>
+</head>
+<body>
+  <header>
+    <h1>オフライン歌詞ビューア</h1>
+  </header>
+
+  <main>
+    <section class="player-section">
+      <div class="file-row">
+        <label class="file-label">動画を選択</label>
+        <input id="videoFile" type="file" accept="video/*">
+        <button id="clearVideo" title="動画をクリア">動画クリア</button>
+      </div>
+      <video id="video" controls playsinline></video>
+
+      <div class="controls">
+        <button id="playPause">再生/一時停止</button>
+        <label>同期間隔(ms):
+          <input id="tickMs" type="number" min="16" step="16" value="100">
+        </label>
+        <label><input id="autoScroll" type="checkbox" checked> 自動スクロール</label>
+        <button id="toggleView">歌詞編集/表示 切替</button>
+      </div>
+    </section>
+
+    <section class="lyrics-section">
+      <div class="lyrics-panels">
+        <div class="panel" id="viewPanel">
+          <h2>歌詞表示</h2>
+          <div id="lyricsView" class="lyrics-view" tabindex="0" aria-live="polite"></div>
+        </div>
+
+        <div class="panel" id="editPanel" hidden>
+          <h2>歌詞編集</h2>
+          <div class="editor-toolbar">
+            <button id="insertTimestamp">現在時刻タグを挿入</button>
+            <button id="convertPlainToLrc">行にタイムスタンプ追加（等間隔）</button>
+            <button id="saveLyrics">保存</button>
+            <button id="exportLyrics">書き出し</button>
+            <input id="importFile" type="file" accept=".lrc,.txt">
+            <label><input id="lrcMode" type="checkbox" checked> LRC（時間同期）</label>
+          </div>
+          <textarea id="lyricsInput" placeholder="[00:12.34] ここに歌詞行"></textarea>
+        </div>
+      </div>
+
+      <div class="meta-row">
+        <label>タイトル
+          <input id="titleInput" type="text" placeholder="曲名やメモ（保存キー）">
+        </label>
+        <button id="loadSaved">保存済みを読み込む</button>
+        <select id="savedList"></select>
+        <button id="deleteSaved">削除</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <small>端末内のみで完結し、データは外部に送信されません。PWAとしてホーム画面に追加すればオフラインでも起動できます。</small>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
